@@ -20,7 +20,8 @@ class ChatServer:
         print('Прослушивание входящих соединений...')
         self.server_socket.listen(4) #прослушивание входящих соединений. В данном случае - не более 4-х.
         self.receive_messages_in_a_new_thread()
-
+    
+    #получить данные (сообщение) из сокета
     def receive_messages(self, sock):
         while True:
             incoming_buffer = sock.recv(256) #инициализация буффера. Получить данные из сокета и сохранить их в буфере.
@@ -36,7 +37,19 @@ class ChatServer:
             socket, (ip, port) = client
             if socket is not senders_socket:
                 socket.sendall(self.last_received_message.encode('utf-8'))
-
     
+    #получение сообщений в новом потоке выполнения
+    def receive_messages_in_a_new_thread(self):
+        while True:
+            client = sock, (ip, port) = self.server_socket.accept()
+            self.add_to_clients_list(client)
+            print('Соединено по адресу: ', ip,  ':', str(port))
+            t = threading.Thread(target=self.receive_messages, args=(sock,))
+            t.start()
+
+
+
+
+
 
 
