@@ -21,12 +21,12 @@ class ChatServer:
         self.server_socket.listen(4) #прослушивание входящих соединений. В данном случае - не более 4-х.
         self.receive_messages_in_a_new_thread()
 
-    def receive_messages(self, so):
+    def receive_messages(self, sock):
         while True:
-            incoming_buffer = so.recv(256) #инициализация буффера
+            incoming_buffer = sock.recv(256) #инициализация буффера. Получить данные из сокета и сохранить их в буфере.
             if not incoming_buffer:
                 break
             self.last_received_message = incoming_buffer.decode('utf-8')
-            self.broadcast_to_all_client(so) #отправлять всем клиентам
-        so.close()
+            self.broadcast_to_all_client(sock) #отправить всем клиентам
+        sock.close()
 
