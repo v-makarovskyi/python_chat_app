@@ -15,4 +15,7 @@ class ChatServer:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #создать сокет, используя TCP и ipv4
         local_ip = '127.0.0.1'
         local_port = 10319
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) #это позволяет немедленно перезапустить TCP-сервер
+        self.server_socket.bind(local_ip, local_port) #это привязывает сервер к IP и порту с целью прослушивания входящих соединений
+        print('Прослушивание входящих соединений...')
+        self.server_socket.listen(5)
