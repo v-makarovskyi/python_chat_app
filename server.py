@@ -27,6 +27,16 @@ class ChatServer:
             if not incoming_buffer:
                 break
             self.last_received_message = incoming_buffer.decode('utf-8')
-            self.broadcast_to_all_client(sock) #отправить всем клиентам
+            self.broadcast_to_all_clients(sock) #отправить всем клиентам
         sock.close()
+    
+    #Трансляция сообщений всем клиентам 
+    def broadcast_to_all_clients(self, senders_socket):
+        for client in self.clients_list:
+            socket, (ip, port) = client
+            if socket is not senders_socket:
+                socket.sendall(self.last_received_message.encode('utf-8'))
+
+    
+
 
