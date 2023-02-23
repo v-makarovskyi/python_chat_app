@@ -15,4 +15,9 @@ class GUI:
         self.initialize_socket()
         self.initialize_gui()
         self.listen_incoming_messages_in_a_thread()
-         
+
+    def initialize_socket(self):
+        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        remote_ip = '127.0.0.1'
+        remote_port = 10319
+        self.client_socket.connect((remote_ip, remote_port))
