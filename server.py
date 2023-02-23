@@ -47,6 +47,16 @@ class ChatServer:
             t = threading.Thread(target=self.receive_messages, args=(sock,))
             t.start()
 
+    #Добавить нового клиента
+    def add_to_clients_list(self, client):
+        if client not in self.clients_list:
+            self.clients_list.append(client)
+
+
+if __name__ == '__main__':
+    ChatServer()
+
+
 
 
 
