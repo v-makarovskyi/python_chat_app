@@ -108,13 +108,22 @@ class GUI:
     
     def send_chat(self):
         sender_name = self.name_widget.get().strip() + ': '
-        data = self.enter_text_widget.get(1.0, 'end').strip()
+        data = self.enter_text_widget.get(1.0, END + '1c').strip()
         message = (sender_name + data).encode('utf-8')
         self.chat_transcript_area.insert(END, message.decode('utf-8') + '\n')
         self.chat_transcript_area.yview(END)
         self.client_socket.end(message)
-        self.enter_text_widget.delete(1.0, END)
+        self.enter_text_widget.delete(1.0, END + '1c')
         return 'break'
+    
+    def clear_text(self):
+        self.enter_text_widget.delete(1.0, END + '1c')
+    
+    def on_close_window(self):
+        if messagebox.askokcansel('Выход. Вы уверены, что хотите покинуть чат?'):
+            self.root.destroy()
+            self.client_socket.close()
+            exit(0)
     
 
 
