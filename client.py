@@ -85,4 +85,13 @@ class GUI:
         self.enter_text_widget = Text(frame, width=60, height=3, font=('Serif', 12))
         self.enter_text_widget.pack(side='left', pady=15)
         self.enter_text_widget.bind('<Return>', self.on_enter_key_pressed)
-            
+
+
+    def on_join(self):
+        """  Обработчик функции клика для  self.join_button в display_name_section() """
+        if len(self.name_widget.get()) == 0:
+            messagebox.showerror(
+                'Введите свое имя, чтобы отправить сообщение')
+            return
+        self.name_widget.config(state='disabled')
+        self.client_socket.send('Присоединился к чату:' + self.name_widget.get()).encode('utf-8')
