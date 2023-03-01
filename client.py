@@ -106,4 +106,19 @@ class GUI:
         self.send_chat()
         self.clear_text()
     
+    def send_chat(self):
+        sender_name = self.name_widget.get().strip() + ': '
+        data = self.enter_text_widget.get(1.0, 'end').strip()
+        message = (sender_name + data).encode('utf-8')
+        self.chat_transcript_area.insert(END, message.decode('utf-8') + '\n')
+        self.chat_transcript_area.yview(END)
+        self.client_socket.end(message)
+        self.enter_text_widget.delete(1.0, END)
+        return 'break'
+    
+
+
+
+
+    
 
