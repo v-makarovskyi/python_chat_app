@@ -57,3 +57,13 @@ class GUI:
                 self.chat_transcript_area.yview(END)
         
         so.close()
+    
+    def display_name_section(self):
+        frame = Frame()
+        Label(frame, text='Введите ваше имя:', font=('Helvetica', 16)).pack(side='left', padx=10)
+        self.name_widget = Entry(frame, width=50, borderwidth=2)
+        self.name_widget.pack(side='left', anchor='e')
+        self.join_button = Button(frame, text='Соединение', width=10, command=self.on_join).pack(side='left')
+        frame.pack(side='top', anchor='nw')
+
+        
