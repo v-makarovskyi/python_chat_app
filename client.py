@@ -77,5 +77,12 @@ class GUI:
         self.chat_transcript_area.pack(side='left', padx=10)
         scrollbar.pack(side='right', fill='y')
         frame.pack(side='top')
+    
 
-        
+    def display_chat_entry_box(self):
+        frame = Frame()
+        Label(frame, text='Введите сообщение:', font=('Serif', 12)).pack(side='top', anchor='w')
+        self.enter_text_widget = Text(frame, width=60, height=3, font=('Serif', 12))
+        self.enter_text_widget.pack(side='left', pady=15)
+        self.enter_text_widget.bind('<Return>', self.on_enter_key_pressed)
+            
