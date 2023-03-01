@@ -43,7 +43,7 @@ class ChatServer:
         while True:
             client = sock, (ip, port) = self.server_socket.accept()
             self.add_to_clients_list(client)
-            print('Соединено по адресу: ', ip,  ':', str(port))
+            print('Соединено по адресу:', ip, ':', str(port))
             t = threading.Thread(target=self.receive_messages, args=(sock,)) #target - вызываемый объект, args - list | tuple для целевого вызова
             t.start()
 
