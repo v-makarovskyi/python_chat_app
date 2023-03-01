@@ -95,3 +95,15 @@ class GUI:
             return
         self.name_widget.config(state='disabled')
         self.client_socket.send('Присоединился к чату:' + self.name_widget.get()).encode('utf-8')
+
+    
+    def on_enter_key_pressed(self, event):
+        """ Обработка события <Enter> для display_chat_entry_box(self) """
+        if len(self.name_widget.get()) == 0:
+            messagebox.showerror(
+                'Введите свое имя, чтобы отправить сообщение')
+            return
+        self.send_chat()
+        self.clear_text()
+    
+
