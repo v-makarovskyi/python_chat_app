@@ -38,4 +38,22 @@ class GUI:
         thread = threading.Thread(
             target=self.receive_message_from_server, args=(self.client_socket,))
         thread.start()
+
+    def receive_message_from_server(self, so):
+        """ функция для получения сообщений """
+        while True:
+            buffer = so.recv(256)
+            if not buffer:
+                break
+            message = buffer.decode('utf-8')
+
+            if 'joined' in message:
+                user = message.split(":")[1]
+                message = user + ' успешно присоединился'
+                self.chat_transcript_area.insert('end', message + '\n')
+                self.chat_transcript_area.yview(END)
+            else:
+                self.chat_transcript_area.insert('end', message + '\n')
+                self.chat_transcript_area.yview(END)
         
+        so.close()
