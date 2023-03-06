@@ -22,14 +22,14 @@ class ChatServer:
         self.receive_messages_in_a_new_thread()
     
     #получить данные (сообщение) из сокета
-    def receive_messages(self, sock):
+    def receive_messages(self, so):
         while True:
-            incoming_buffer = sock.recv(256) #инициализация буффера. Получить данные из сокета и сохранить их в буфере.
+            incoming_buffer = so.recv(256) #инициализация буффера. Получить данные из сокета и сохранить их в буфере.
             if not incoming_buffer:
                 break
             self.last_received_message = incoming_buffer.decode('utf-8')
-            self.broadcast_to_all_clients(sock) #отправить всем клиентам
-        sock.close()
+            self.broadcast_to_all_clients(so) #отправить всем клиентам
+        so.close()
     
     #Трансляция сообщений всем клиентам 
     def broadcast_to_all_clients(self, senders_socket):
